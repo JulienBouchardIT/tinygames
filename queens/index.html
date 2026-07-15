@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Queens - TinyGames</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <a class="home-link" href="../" aria-label="Retour a l'accueil">&larr;</a>
+    <h1>QUEENS</h1>
+    <button id="help-btn" aria-label="Aide" title="Comment jouer">?</button>
+  </header>
+
+  <main>
+    <div class="status-bar">
+      <div class="status-item">
+        <span class="status-label">Temps</span>
+        <span id="timer" class="status-value">0:00</span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">Reines</span>
+        <span id="progress" class="status-value">0/0</span>
+      </div>
+    </div>
+
+    <div id="message" class="message" aria-live="polite"></div>
+
+    <div id="board" role="grid" aria-label="Grille de régions"></div>
+
+    <div class="controls">
+      <button id="undo-btn">Effacer</button>
+    </div>
+  </main>
+
+  <div id="new-game-area" class="hidden">
+    <button id="new-game-btn">Nouvelle partie</button>
+  </div>
+
+  <div id="help-modal" class="modal hidden">
+    <div class="modal-content">
+      <button class="close-btn" id="close-help">&times;</button>
+      <h2>Comment jouer</h2>
+      <p>Placez une reine (♛) par ligne, par colonne et par région colorée, de sorte
+      qu'aucune reine ne touche une autre reine (même en diagonale).</p>
+      <p>Cliquez une fois sur une case pour la marquer d'une croix (aide-mémoire),
+      cliquez à nouveau pour y placer une reine, et une troisième fois pour la vider.</p>
+      <p>Les reines en conflit s'affichent en rouge.</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+</content>

@@ -8,6 +8,8 @@ La page d'accueil liste les jeux disponibles :
 
 - **Motus** (`wordle/`) - clone de Wordle en francais
 - **Boggle** (`boggle/`) - trouvez un maximum de mots dans une grille de lettres
+- **Zip** (`zip/`) - reliez les chiffres dans l'ordre en parcourant toute la grille
+- **Queens** (`queens/`) - placez une reine par ligne, colonne et region sans qu'elles se touchent
 
 ## Motus
 
@@ -28,6 +30,20 @@ verticalement ou en diagonale) sur une grille 5x5. Chaque case ne peut etre util
 qu'une seule fois par mot. Vous avez 3 minutes pour marquer un maximum de points
 (1 point pour 3-4 lettres, 2 pour 5, 3 pour 6, 5 pour 7, 11 pour 8).
 
+## Zip
+
+Reliez les chiffres 1, 2, 3... dans l'ordre en traçant un chemin entre cases voisines
+(horizontalement ou verticalement), sans repasser deux fois par la même case. Le chemin
+doit couvrir toutes les cases de la grille. Cliquez ou glissez d'une case à l'autre pour
+tracer le chemin ; cliquez sur la dernière case tracée pour revenir en arrière.
+
+## Queens
+
+Placez une reine par ligne, par colonne et par région colorée, de sorte qu'aucune reine ne
+touche une autre reine, même en diagonale. Cliquez une fois pour marquer une case d'une
+croix (aide-mémoire), une deuxième fois pour y placer une reine, une troisième fois pour la
+vider. Les reines en conflit s'affichent en rouge.
+
 ## Structure du projet
 
 - `index.html`, `style.css` - page d'accueil listant les jeux
@@ -35,6 +51,8 @@ qu'une seule fois par mot. Vous avez 3 minutes pour marquer un maximum de points
 - `liste_francais.txt` - liste brute de mots francais de longueurs variees (source de `boggle/words.txt`)
 - `wordle/` - jeu Motus (`index.html`, `script.js`, `style.css`)
 - `boggle/` - jeu Boggle (`index.html`, `script.js`, `style.css`, `words.txt`)
+- `zip/` - jeu Zip (`index.html`, `script.js`, `style.css`)
+- `queens/` - jeu Queens (`index.html`, `script.js`, `style.css`)
 
 ## Developpement local
 
