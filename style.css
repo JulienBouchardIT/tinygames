@@ -154,6 +154,10 @@ main {
   gap: 8px;
 }
 
+#keyboard.hidden {
+  display: none;
+}
+
 .kb-row {
   display: flex;
   justify-content: center;
@@ -191,6 +195,35 @@ main {
 .key.absent {
   background: var(--absent);
   opacity: 0.5;
+}
+
+#new-game-area {
+  width: 100%;
+  max-width: 500px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+#new-game-area.hidden {
+  display: none;
+}
+
+#new-game-btn {
+  background: var(--correct);
+  color: var(--fg);
+  border: none;
+  border-radius: 6px;
+  padding: 14px 32px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  cursor: pointer;
+}
+
+#new-game-btn:hover {
+  filter: brightness(1.1);
 }
 
 .modal {

@@ -7,6 +7,8 @@ const messageEl = document.getElementById('message');
 const helpBtn = document.getElementById('help-btn');
 const helpModal = document.getElementById('help-modal');
 const closeHelp = document.getElementById('close-help');
+const newGameArea = document.getElementById('new-game-area');
+const newGameBtn = document.getElementById('new-game-btn');
 
 const KEYBOARD_ROWS = [
   ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
@@ -20,6 +22,7 @@ let currentGuess = '';
 let guesses = [];
 let statuses = [];
 let gameOver = false;
+let isReplay = false;
 
 function todaySeed() {
   const now = new Date();
@@ -48,6 +51,15 @@ function pickSolution() {
   return wordList[index];
 }
 
+function pickRandomSolution(exclude) {
+  if (wordList.length <= 1) return wordList[0];
+  let word;
+  do {
+    word = wordList[Math.floor(Math.random() * wordList.length)];
+  } while (word === exclude);
+  return word;
+}
+
 function storageKey() {
   return `motus-fr-${todaySeed()}`;
 }
@@ -63,10 +75,41 @@ function loadState() {
 }
 
 function saveState() {
+  if (isReplay) return;
   localStorage.setItem(
     storageKey(),
     JSON.stringify({ guesses, statuses, gameOver })
   );
+}
+
+function showEndOfGame() {
+  keyboardEl.classList.add('hidden');
+  newGameArea.classList.remove('hidden');
+}
+
+function hideEndOfGame() {
+  keyboardEl.classList.remove('hidden');
+  newGameArea.classList.add('hidden');
+}
+
+function resetKeyboardColors() {
+  keyboardEl.querySelectorAll('.key').forEach((btn) => {
+    delete btn.dataset.status;
+    btn.classList.remove('correct', 'present', 'absent');
+  });
+}
+
+function startNewGame() {
+  solution = pickRandomSolution(solution);
+  isReplay = true;
+  currentGuess = '';
+  guesses = [];
+  statuses = [];
+  gameOver = false;
+  buildBoard();
+  resetKeyboardColors();
+  messageEl.textContent = '';
+  hideEndOfGame();
 }
 
 function buildBoard() {
@@ -214,11 +257,17 @@ function submitGuess() {
   if (currentGuess === solution) {
     gameOver = true;
     saveState();
-    setTimeout(() => showMessage('Bravo !', 5000), 1200);
+    setTimeout(() => {
+      showMessage('Bravo !', 5000);
+      showEndOfGame();
+    }, 1200);
   } else if (guesses.length === MAX_TRIES) {
     gameOver = true;
     saveState();
-    setTimeout(() => showMessage(`Le mot etait : ${solution}`, 8000), 1200);
+    setTimeout(() => {
+      showMessage(`Le mot etait : ${solution}`, 8000);
+      showEndOfGame();
+    }, 1200);
   } else {
     saveState();
   }
@@ -240,6 +289,7 @@ function restoreState(state) {
     } else {
       showMessage(`Le mot etait : ${solution}`, 8000);
     }
+    showEndOfGame();
   }
 }
 
@@ -276,6 +326,7 @@ async function init() {
   helpModal.addEventListener('click', (e) => {
     if (e.target === helpModal) helpModal.classList.add('hidden');
   });
+  newGameBtn.addEventListener('click', startNewGame);
 }
 
 init();
