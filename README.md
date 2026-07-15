@@ -1,10 +1,15 @@
-# Motus - Wordle en francais
+# TinyGames
 
-Un clone du jeu Wordle en francais, jouable directement dans le navigateur.
+Une petite collection de jeux de mots en francais, jouables directement dans le navigateur.
 
 **Jouer : https://julienbouchardit.github.io/tinygames/**
 
-## Regles
+La page d'accueil liste les jeux disponibles :
+
+- **Motus** (`wordle/`) - clone de Wordle en francais
+- **Boggle** (`boggle/`) - trouvez un maximum de mots dans une grille de lettres
+
+## Motus
 
 Devinez le mot du jour en 6 essais. Chaque essai doit etre un mot valide de 5 lettres.
 Apres chaque essai, la couleur des cases indique si vos lettres sont bien placees :
@@ -16,12 +21,18 @@ Apres chaque essai, la couleur des cases indique si vos lettres sont bien placee
 Un nouveau mot est propose chaque jour. Apres une victoire ou une defaite, un bouton
 "Nouvelle partie" permet de rejouer avec un mot aleatoire.
 
+## Boggle
+
+Formez des mots de 5 lettres en reliant des lettres adjacentes (horizontalement,
+verticalement ou en diagonale) sur une grille 5x5. Chaque case ne peut etre utilisee
+qu'une seule fois par mot. Vous avez 3 minutes pour trouver un maximum de mots.
+
 ## Structure du projet
 
-- `index.html` - structure de la page
-- `style.css` - habillage visuel
-- `script.js` - logique du jeu
-- `words.csv` - liste des mots francais de 5 lettres utilises par le jeu
+- `index.html`, `style.css` - page d'accueil listant les jeux
+- `words.csv` - liste des mots francais de 5 lettres, partagee par les jeux
+- `wordle/` - jeu Motus (`index.html`, `script.js`, `style.css`)
+- `boggle/` - jeu Boggle (`index.html`, `script.js`, `style.css`)
 
 ## Developpement local
 

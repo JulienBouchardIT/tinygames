@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motus - Le Wordle Francais</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>MOTUS</h1>
+    <button id="help-btn" aria-label="Aide" title="Comment jouer">?</button>
+  </header>
+
+  <main>
+    <div id="message" class="message" aria-live="polite"></div>
+    <div id="board" role="grid" aria-label="Grille de jeu"></div>
+  </main>
+
+  <div id="keyboard" role="group" aria-label="Clavier"></div>
+  <div id="new-game-area" class="hidden">
+    <button id="new-game-btn">Nouvelle partie</button>
+  </div>
+
+  <div id="help-modal" class="modal hidden">
+    <div class="modal-content">
+      <button class="close-btn" id="close-help">&times;</button>
+      <h2>Comment jouer</h2>
+      <p>Devinez le mot du jour en 6 essais.</p>
+      <p>Chaque essai doit etre un mot valide de 5 lettres.</p>
+      <p>Apres chaque essai, la couleur des cases change pour indiquer si vos lettres sont bien placees.</p>
+      <div class="example">
+        <div class="tile correct">A</div>
+        <span>La lettre est dans le mot et bien placee.</span>
+      </div>
+      <div class="example">
+        <div class="tile present">B</div>
+        <span>La lettre est dans le mot mais mal placee.</span>
+      </div>
+      <div class="example">
+        <div class="tile absent">C</div>
+        <span>La lettre n'est pas dans le mot.</span>
+      </div>
+      <p>Un nouveau mot est disponible chaque jour !</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

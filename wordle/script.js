@@ -36,7 +36,7 @@ function stripAccents(str) {
 }
 
 async function loadWords() {
-  const res = await fetch('words.csv');
+  const res = await fetch('../words.csv');
   const text = await res.text();
   const lines = text.trim().split(/\r?\n/);
   lines.shift();

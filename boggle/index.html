@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boggle - TinyGames</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <a class="home-link" href="../" aria-label="Retour a l'accueil">&larr;</a>
+    <h1>BOGGLE</h1>
+    <button id="help-btn" aria-label="Aide" title="Comment jouer">?</button>
+  </header>
+
+  <main>
+    <div class="status-bar">
+      <div class="status-item">
+        <span class="status-label">Temps</span>
+        <span id="timer" class="status-value">3:00</span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">Mots</span>
+        <span id="score" class="status-value">0</span>
+      </div>
+    </div>
+
+    <div id="message" class="message" aria-live="polite"></div>
+
+    <div id="board" role="grid" aria-label="Grille de lettres"></div>
+
+    <div id="current-word" class="current-word"></div>
+
+    <div class="controls">
+      <button id="undo-btn">Effacer</button>
+      <button id="submit-btn">Valider</button>
+    </div>
+
+    <div class="found-words">
+      <h2>Mots trouves (<span id="found-count">0</span>)</h2>
+      <ul id="found-list"></ul>
+    </div>
+  </main>
+
+  <div id="new-game-area" class="hidden">
+    <button id="new-game-btn">Nouvelle partie</button>
+  </div>
+
+  <div id="help-modal" class="modal hidden">
+    <div class="modal-content">
+      <button class="close-btn" id="close-help">&times;</button>
+      <h2>Comment jouer</h2>
+      <p>Formez des mots de 5 lettres en reliant des lettres adjacentes (horizontalement, verticalement ou en diagonale).</p>
+      <p>Chaque case ne peut etre utilisee qu'une seule fois par mot.</p>
+      <p>Cliquez sur les lettres dans l'ordre, puis sur "Valider" pour proposer le mot. Vous avez 3 minutes pour trouver un maximum de mots.</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
