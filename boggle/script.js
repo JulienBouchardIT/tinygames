@@ -1,7 +1,8 @@
 const GRID_SIZE = 5;
-const WORD_LENGTH = 5;
+const MIN_WORD_LENGTH = 3;
+const MAX_WORD_LENGTH = 8;
 const GAME_DURATION = 180;
-const WORDS_TO_PLANT = 12;
+const WORDS_TO_PLANT = 18;
 
 const LETTER_POOL =
   'AAAAAAABBCCCDDDEEEEEEEEEEEEEEEFFGGHHIIIIIIILLLLLMMMNNNNNNNOOOOOPPPQRRRRRRSSSSSSSTTTTTTTUUUUUUVVXYZ';
@@ -25,6 +26,7 @@ let wordList = [];
 let grid = [];
 let path = [];
 let foundWords = [];
+let totalScore = 0;
 let timeLeft = GAME_DURATION;
 let timerId = null;
 let gameOver = false;
@@ -34,13 +36,20 @@ function stripAccents(str) {
 }
 
 async function loadWords() {
-  const res = await fetch('../words.csv');
+  const res = await fetch('words.txt');
   const text = await res.text();
   const lines = text.trim().split(/\r?\n/);
-  lines.shift();
   wordList = lines
     .map((l) => stripAccents(l.trim().toUpperCase()))
-    .filter((w) => w.length === WORD_LENGTH);
+    .filter((w) => w.length >= MIN_WORD_LENGTH && w.length <= MAX_WORD_LENGTH);
+}
+
+function wordScore(length) {
+  if (length <= 4) return 1;
+  if (length === 5) return 2;
+  if (length === 6) return 3;
+  if (length === 7) return 5;
+  return 11;
 }
 
 function idx(r, c) {
@@ -108,7 +117,10 @@ function tryPlantWord(cells, word) {
 
 function generateGrid() {
   const cells = new Array(GRID_SIZE * GRID_SIZE).fill(null);
-  const candidates = shuffle(wordList).slice(0, WORDS_TO_PLANT * 3);
+  // Favor shorter words first: they are easier to fit and guarantee a playable board.
+  const candidates = shuffle(wordList)
+    .slice(0, WORDS_TO_PLANT * 6)
+    .sort((a, b) => a.length - b.length);
   let planted = 0;
   for (const word of candidates) {
     if (planted >= WORDS_TO_PLANT) break;
@@ -158,7 +170,7 @@ function handleTileClick(i) {
   }
   const last = path[path.length - 1];
   if (path.length > 0 && !neighbors(last).includes(i)) return;
-  if (path.length >= WORD_LENGTH) return;
+  if (path.length >= MAX_WORD_LENGTH) return;
   path.push(i);
   updateWordDisplay();
   updateTileStates();
@@ -186,8 +198,8 @@ function showMessage(text, duration = 1800) {
 function submitWord() {
   if (gameOver) return;
   const word = path.map((i) => grid[i]).join('');
-  if (word.length !== WORD_LENGTH) {
-    showMessage('Le mot doit faire 5 lettres');
+  if (word.length < MIN_WORD_LENGTH) {
+    showMessage(`Le mot doit faire au moins ${MIN_WORD_LENGTH} lettres`);
     return;
   }
   if (foundWords.includes(word)) {
@@ -201,8 +213,9 @@ function submitWord() {
     return;
   }
   foundWords.push(word);
+  totalScore += wordScore(word.length);
   renderFoundWords();
-  showMessage('Bien joue !');
+  showMessage(`+${wordScore(word.length)} point(s) !`);
   clearPath();
 }
 
@@ -214,7 +227,7 @@ function renderFoundWords() {
     foundListEl.appendChild(li);
   });
   foundCountEl.textContent = foundWords.length;
-  scoreEl.textContent = foundWords.length;
+  scoreEl.textContent = totalScore;
 }
 
 function formatTime(seconds) {
@@ -240,7 +253,7 @@ function endGame() {
   });
   submitBtn.disabled = true;
   undoBtn.disabled = true;
-  showMessage(`Termine ! ${foundWords.length} mot(s) trouve(s)`, 6000);
+  showMessage(`Termine ! ${foundWords.length} mot(s), ${totalScore} point(s)`, 6000);
   newGameArea.classList.remove('hidden');
 }
 
@@ -248,6 +261,7 @@ function startNewGame() {
   grid = generateGrid();
   path = [];
   foundWords = [];
+  totalScore = 0;
   timeLeft = GAME_DURATION;
   gameOver = false;
   buildBoard();

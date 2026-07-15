@@ -23,16 +23,18 @@ Un nouveau mot est propose chaque jour. Apres une victoire ou une defaite, un bo
 
 ## Boggle
 
-Formez des mots de 5 lettres en reliant des lettres adjacentes (horizontalement,
+Formez des mots de 3 a 8 lettres en reliant des lettres adjacentes (horizontalement,
 verticalement ou en diagonale) sur une grille 5x5. Chaque case ne peut etre utilisee
-qu'une seule fois par mot. Vous avez 3 minutes pour trouver un maximum de mots.
+qu'une seule fois par mot. Vous avez 3 minutes pour marquer un maximum de points
+(1 point pour 3-4 lettres, 2 pour 5, 3 pour 6, 5 pour 7, 11 pour 8).
 
 ## Structure du projet
 
 - `index.html`, `style.css` - page d'accueil listant les jeux
-- `words.csv` - liste des mots francais de 5 lettres, partagee par les jeux
+- `words.csv` - liste des mots francais de 5 lettres, utilisee par Motus
+- `liste_francais.txt` - liste brute de mots francais de longueurs variees (source de `boggle/words.txt`)
 - `wordle/` - jeu Motus (`index.html`, `script.js`, `style.css`)
-- `boggle/` - jeu Boggle (`index.html`, `script.js`, `style.css`)
+- `boggle/` - jeu Boggle (`index.html`, `script.js`, `style.css`, `words.txt`)
 
 ## Developpement local
 
