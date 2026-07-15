@@ -296,4 +296,3 @@ function init() {
 }
 
 init();
-</content>
