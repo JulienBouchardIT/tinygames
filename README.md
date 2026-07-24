@@ -10,6 +10,7 @@ La page d'accueil liste les jeux disponibles :
 - **Boggle** (`boggle/`) - trouvez un maximum de mots dans une grille de lettres
 - **Zip** (`zip/`) - reliez les chiffres dans l'ordre en parcourant toute la grille
 - **Queens** (`queens/`) - placez une reine par ligne, colonne et region sans qu'elles se touchent
+- **Blackjack** (`blackjack/`) - battez le croupier en approchant 21 sans le depasser
 
 ## Motus
 
@@ -44,6 +45,14 @@ touche une autre reine, même en diagonale. Cliquez une fois pour marquer une ca
 croix (aide-mémoire), une deuxième fois pour y placer une reine, une troisième fois pour la
 vider. Les reines en conflit s'affichent en rouge.
 
+## Blackjack
+
+Misez des jetons puis distribuez les cartes. Approchez 21 le plus possible sans le
+dépasser, en tirant des cartes ou en restant sur votre main. Le croupier tire tant que
+sa main est inférieure à 17. Un blackjack (21 avec les 2 premières cartes) paie 3 pour 2,
+une victoire classique paie 1 pour 1, et une égalité rembourse la mise. Vous pouvez
+doubler votre mise sur les 2 premières cartes pour tirer une seule carte supplémentaire.
+
 ## Structure du projet
 
 - `index.html`, `style.css` - page d'accueil listant les jeux
@@ -53,6 +62,7 @@ vider. Les reines en conflit s'affichent en rouge.
 - `boggle/` - jeu Boggle (`index.html`, `script.js`, `style.css`, `words.txt`)
 - `zip/` - jeu Zip (`index.html`, `script.js`, `style.css`)
 - `queens/` - jeu Queens (`index.html`, `script.js`, `style.css`)
+- `blackjack/` - jeu Blackjack (`index.html`, `script.js`, `style.css`)
 
 ## Developpement local
 
