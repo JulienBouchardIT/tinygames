@@ -9,7 +9,10 @@
 <body>
   <header>
     <h1>MOTUS</h1>
-    <button id="help-btn" aria-label="Aide" title="Comment jouer">?</button>
+    <div class="header-right">
+      <span class="coin-badge" title="Vos pièces">🪙 <span id="coin-count">0</span></span>
+      <button id="help-btn" aria-label="Aide" title="Comment jouer">?</button>
+    </div>
   </header>
 
   <main>
@@ -45,6 +48,7 @@
     </div>
   </div>
 
+  <script src="../coins.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

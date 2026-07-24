@@ -12,6 +12,11 @@ La page d'accueil liste les jeux disponibles :
 - **Queens** (`queens/`) - placez une reine par ligne, colonne et region sans qu'elles se touchent
 - **Blackjack** (`blackjack/`) - battez le croupier en approchant 21 sans le depasser
 
+Chaque page affiche dans son entete le nombre de pieces du joueur. Ce solde est commun a
+tous les jeux (stocke dans le `localStorage` du navigateur, cle `tinygames-coins`, 100
+pieces au demarrage) : trouver un mot dans Boggle rapporte 1 piece, terminer Zip 10,
+terminer Queens 15 et gagner a Motus 25. Ces pieces servent de mise au Blackjack.
+
 ## Motus
 
 Devinez le mot du jour en 6 essais. Chaque essai doit etre un mot valide de 5 lettres.
@@ -47,15 +52,18 @@ vider. Les reines en conflit s'affichent en rouge.
 
 ## Blackjack
 
-Misez des jetons puis distribuez les cartes. Approchez 21 le plus possible sans le
-dépasser, en tirant des cartes ou en restant sur votre main. Le croupier tire tant que
-sa main est inférieure à 17. Un blackjack (21 avec les 2 premières cartes) paie 3 pour 2,
-une victoire classique paie 1 pour 1, et une égalité rembourse la mise. Vous pouvez
-doubler votre mise sur les 2 premières cartes pour tirer une seule carte supplémentaire.
+Misez des pièces (votre solde commun à tous les jeux) puis distribuez les cartes.
+Approchez 21 le plus possible sans le dépasser, en tirant des cartes ou en restant sur
+votre main. Le croupier tire tant que sa main est inférieure à 17. Un blackjack (21 avec
+les 2 premières cartes) paie 3 pour 2, une victoire classique paie 1 pour 1, et une
+égalité rembourse la mise. Vous pouvez doubler votre mise sur les 2 premières cartes pour
+tirer une seule carte supplémentaire. Si vous n'avez plus de pièces, rejouez aux autres
+jeux du site pour en regagner.
 
 ## Structure du projet
 
 - `index.html`, `style.css` - page d'accueil listant les jeux
+- `coins.js` - solde de pieces partage (localStorage), inclus par toutes les pages
 - `words.csv` - liste des mots francais de 5 lettres, utilisee par Motus
 - `liste_francais.txt` - liste brute de mots francais de longueurs variees (source de `boggle/words.txt`)
 - `wordle/` - jeu Motus (`index.html`, `script.js`, `style.css`)

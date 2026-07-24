@@ -30,15 +30,32 @@ header {
   max-width: 500px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  gap: 8px;
   border-bottom: 1px solid var(--border);
-  padding: 10px 0;
+  padding: 10px 12px;
 }
 
 header h1 {
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: center;
   font-size: 2rem;
   letter-spacing: 0.2rem;
   margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.coin-badge {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  white-space: nowrap;
 }
 
 main {

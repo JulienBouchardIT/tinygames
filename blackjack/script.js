@@ -1,6 +1,5 @@
 const SUITS = ['♠', '♥', '♦', '♣'];
 const RANKS = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
-const STARTING_BANKROLL = 1000;
 const DEALER_STAND = 17;
 
 const bankrollEl = document.getElementById('bankroll');
@@ -24,7 +23,7 @@ const helpBtn = document.getElementById('help-btn');
 const helpModal = document.getElementById('help-modal');
 const closeHelp = document.getElementById('close-help');
 
-let bankroll = STARTING_BANKROLL;
+let bankroll = 0;
 let bet = 0;
 let currentBet = 0;
 let deck = [];
@@ -118,6 +117,11 @@ function updateBankrollUI() {
   betDisplayEl.textContent = String(bet);
 }
 
+function bankrollAdd(delta) {
+  bankroll = Coins.add(delta);
+  updateBankrollUI();
+}
+
 function updateChipState() {
   chipButtons.forEach((btn) => {
     const value = parseInt(btn.dataset.value, 10);
@@ -154,7 +158,7 @@ function setControlsForPhase() {
 function startRound() {
   if (bet <= 0 || bet > bankroll) return;
   currentBet = bet;
-  bankroll -= currentBet;
+  bankrollAdd(-currentBet);
   bet = 0;
   deck = deck.length < 15 ? buildDeck() : deck;
   playerHand = [drawCard(), drawCard()];
@@ -176,10 +180,10 @@ function resolvePlayerBlackjack() {
   dealerHoleHidden = false;
   renderHands();
   if (isBlackjack(dealerHand)) {
-    bankroll += currentBet;
+    bankrollAdd(currentBet);
     endRound('Egalite ! Deux blackjacks, mise remboursee.');
   } else {
-    bankroll += Math.round(currentBet * 2.5);
+    bankrollAdd(Math.round(currentBet * 2.5));
     endRound('Blackjack ! Vous gagnez.');
   }
 }
@@ -211,9 +215,8 @@ function stand() {
 function doubleDown() {
   if (phase !== 'player') return;
   if (playerHand.length !== 2 || bankroll < currentBet) return;
-  bankroll -= currentBet;
+  bankrollAdd(-currentBet);
   currentBet *= 2;
-  updateBankrollUI();
   playerHand.push(drawCard());
   renderHands();
   const total = calcHand(playerHand);
@@ -241,15 +244,15 @@ function resolveDealerOutcome() {
   const playerTotal = calcHand(playerHand);
   const dealerTotal = calcHand(dealerHand);
   if (dealerTotal > 21) {
-    bankroll += currentBet * 2;
+    bankrollAdd(currentBet * 2);
     endRound('Le croupier depasse 21. Vous gagnez !');
   } else if (dealerTotal > playerTotal) {
     endRound('Le croupier gagne.');
   } else if (dealerTotal < playerTotal) {
-    bankroll += currentBet * 2;
+    bankrollAdd(currentBet * 2);
     endRound('Vous gagnez !');
   } else {
-    bankroll += currentBet;
+    bankrollAdd(currentBet);
     endRound('Egalite, mise remboursee.');
   }
 }
@@ -259,24 +262,18 @@ function endRound(text) {
   showMessage(text);
   updateBankrollUI();
   setControlsForPhase();
-  if (bankroll <= 0) {
-    newRoundBtn.textContent = 'Recommencer (plus de jetons)';
-  } else {
-    newRoundBtn.textContent = 'Nouvelle manche';
-  }
+  newRoundBtn.textContent = 'Nouvelle manche';
 }
 
 function newRound() {
-  if (bankroll <= 0) {
-    bankroll = STARTING_BANKROLL;
-  }
   playerHand = [];
   dealerHand = [];
   dealerHoleHidden = false;
   bet = 0;
   currentBet = 0;
   phase = 'betting';
-  showMessage('');
+  bankroll = Coins.get();
+  showMessage(bankroll <= 0 ? 'Plus de pièces ! Jouez aux autres jeux pour en gagner.' : '');
   updateBankrollUI();
   updateChipState();
   renderHands();
@@ -285,9 +282,13 @@ function newRound() {
 
 function init() {
   deck = buildDeck();
+  bankroll = Coins.get();
   updateBankrollUI();
   updateChipState();
   setControlsForPhase();
+  if (bankroll <= 0) {
+    showMessage('Plus de pièces ! Jouez aux autres jeux pour en gagner.');
+  }
 
   chipButtons.forEach((btn) => {
     btn.addEventListener('click', () => placeChip(parseInt(btn.dataset.value, 10)));

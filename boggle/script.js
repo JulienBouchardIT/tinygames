@@ -214,6 +214,7 @@ function submitWord() {
   }
   foundWords.push(word);
   totalScore += wordScore(word.length);
+  Coins.add(1);
   renderFoundWords();
   showMessage(`+${wordScore(word.length)} point(s) !`);
   clearPath();

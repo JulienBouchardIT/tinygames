@@ -10,14 +10,17 @@
   <header>
     <a class="home-link" href="../" aria-label="Retour a l'accueil">&larr;</a>
     <h1>BLACKJACK</h1>
-    <button id="help-btn" aria-label="Aide" title="Comment jouer">?</button>
+    <div class="header-right">
+      <span class="coin-badge" title="Vos pièces">🪙 <span id="coin-count">0</span></span>
+      <button id="help-btn" aria-label="Aide" title="Comment jouer">?</button>
+    </div>
   </header>
 
   <main>
     <div class="status-bar">
       <div class="status-item">
-        <span class="status-label">Jetons</span>
-        <span id="bankroll" class="status-value">1000</span>
+        <span class="status-label">Pièces</span>
+        <span id="bankroll" class="status-value">0</span>
       </div>
       <div class="status-item">
         <span class="status-label">Mise</span>
@@ -73,8 +76,10 @@
     <div class="modal-content">
       <button class="close-btn" id="close-help">&times;</button>
       <h2>Comment jouer</h2>
-      <p>Misez des jetons puis cliquez sur <strong>Distribuer</strong>. Le but est
+      <p>Misez des pièces puis cliquez sur <strong>Distribuer</strong>. Le but est
       d'obtenir une main plus proche de 21 que celle du croupier, sans la dépasser.</p>
+      <p>Les pièces sont communes à tous les jeux du site : trouvez des mots dans Boggle,
+      terminez Zip, Queens ou Motus pour en gagner.</p>
       <p>Les cartes 2 à 10 valent leur valeur, les figures (J, Q, K) valent 10, et l'as
       vaut 11 ou 1 (la valeur la plus favorable est utilisée automatiquement).</p>
       <p><strong>Tirer</strong> : piocher une carte. <strong>Rester</strong> : garder sa
@@ -86,6 +91,7 @@
     </div>
   </div>
 
+  <script src="../coins.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

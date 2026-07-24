@@ -239,6 +239,7 @@ function checkWin() {
   if (path.length === numbers.length) {
     gameOver = true;
     clearInterval(timerId);
+    Coins.add(10);
     showMessage(`Bravo ! Terminé en ${formatTime(elapsed)}`, 0);
     newGameArea.classList.remove('hidden');
   }

@@ -257,6 +257,7 @@ function submitGuess() {
   if (currentGuess === solution) {
     gameOver = true;
     saveState();
+    Coins.add(25);
     setTimeout(() => {
       showMessage('Bravo !', 5000);
       showEndOfGame();

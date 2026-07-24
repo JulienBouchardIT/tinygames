@@ -206,6 +206,7 @@ function checkWin() {
   if (conflicts.size > 0) return;
   gameOver = true;
   clearInterval(timerId);
+  Coins.add(15);
   showMessage(`Bravo ! Terminé en ${formatTime(elapsed)}`, 0);
   newGameArea.classList.remove('hidden');
 }
